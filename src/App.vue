@@ -1,19 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="https://vuejs.org/images/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input
+      @keyup.enter="handleTodo"
+      v-model.trim.lazy="message"
+      placeholder="Enter Todo"
+    />
+    <div>
+      <ul>
+        <li @click="removeItem" v-for="todo in todos">{{ todo }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      message: '',
+      todos: [],
+    };
+  },
+  methods: {
+    handleTodo() {
+      this.message && this.todos.push(this.message);
+      console.log(this.todos);
+    },
+    removeItem() {},
+  },
+};
 </script>
 
 <style>
@@ -24,5 +39,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+ul {
+  list-style: none;
 }
 </style>
